@@ -1,5 +1,5 @@
-import { date, integer, pgEnum, pgTable, varchar } from "drizzle-orm/pg-core";
-import { expenseTypeEnums } from "../constants";
+import { date, integer, pgEnum, pgTable, timestamp, varchar } from "drizzle-orm/pg-core";
+import { expenseTypeEnums } from "../constants.js";
 
 const expenseTypeEnum = pgEnum("expense_type", expenseTypeEnums);
 
@@ -10,7 +10,7 @@ export const usersTable = pgTable("users", {
     passwordHash: varchar("passwordHash", { length: 255 }).notNull(),
     phone: varchar("phone", { length: 15 }),
     fullName: varchar("fullName", { length: 100 }).notNull(),
-    createdAt: datetime("createdAt").notNull().defaultNow(),
+    createdAt: timestamp("createdAt", { withTimezone: true }).notNull().defaultNow(),
 });
 
 export const incomeTable = pgTable("income", {
@@ -20,7 +20,7 @@ export const incomeTable = pgTable("income", {
     title: varchar("title", { length: 100 }).notNull(),
     startDate: date("startDate").notNull(),
     endDate: date("endDate"),
-    createdAt: datetime("createdAt").notNull().defaultNow(),
+    createdAt: timestamp("createdAt", { withTimezone: true }).notNull().defaultNow(),
 });
 
 export const expensesTable = pgTable("expenses", {
@@ -31,7 +31,7 @@ export const expensesTable = pgTable("expenses", {
     type: expenseTypeEnum("type").notNull(),
     startDate: date("startDate").notNull(),
     endDate: date("endDate"),
-    createdAt: datetime("createdAt").notNull().defaultNow(),
+    createdAt: timestamp("createdAt", { withTimezone: true }).notNull().defaultNow(),
 });
 
 export const savingsTable = pgTable("savings", {
@@ -40,5 +40,5 @@ export const savingsTable = pgTable("savings", {
     amount: integer().notNull(),
     title: varchar("title", { length: 100 }).notNull(),
     creditDate: date("creditDate").notNull(),
-    createdAt: datetime("createdAt").notNull().defaultNow(),
+    createdAt: timestamp("createdAt", { withTimezone: true }).notNull().defaultNow(),
 });
